@@ -1,1 +1,5 @@
 Documents/
+node_modules/
+.DS_STORE
+.idea
+yarn-error.log
