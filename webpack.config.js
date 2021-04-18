@@ -23,7 +23,7 @@ module.exports ={
   entry: [
     'webpack-dev-server/client?http://0.0.0.0:6464',
     'webpack/hot/only-dev-server',
-    path.resolve(__dirname, './src/', 'index.jsx'),
+    path.resolve(__dirname, './src/index.jsx'),
   ],
   output: {
     filename: 'bundle.js',
@@ -37,7 +37,7 @@ module.exports ={
     compress: false,
     hot: true,
     host: '0.0.0.0',
-    port: 9000,
+    port: 6464,
   },
   module: {
     rules: [
@@ -82,5 +82,11 @@ module.exports ={
         ],
       },
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    alias: {
+      Src: path.resolve('./src'),
+    },
   },
 }
