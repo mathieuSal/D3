@@ -13,6 +13,14 @@ const Parameters = ({editSetting, settings}) => {
           onChange={(e) => editSetting('fill_color', e.target.value)}
         />
       </div>
+      <div className="Parameter-Value">
+        <label>Values: </label>
+        <input
+          type="text"
+          value={settings.value}
+          onChange={(e) => editSetting('value', e.target.value)}
+        />
+      </div>
       <div className="Parameter-InnerRadius">
         <Parameter
           label="Inner radius"
@@ -48,7 +56,7 @@ const Parameters = ({editSetting, settings}) => {
         <Parameter
           label="End angle"
           min={0}
-          max={6.2}
+          max={6.3}
           step={0.1}
           settingLabel={'end_angle'}
           value={settings.end_angle}
