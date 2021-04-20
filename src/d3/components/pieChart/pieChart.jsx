@@ -7,10 +7,11 @@ const PieChart = () => {
     inner_radius: 85,
     outer_radius: 95,
     start_angle: 0,
-    end_angle: 5.5,
+    end_angle: 6.3,
     pad_angle: 0,
     corner_radius: 20,
-    fill_color: '#34ab34',
+    fill_color: '#e0e0e0',
+    value: '[60, 40]',
   })
 
   const editSetting = (parameter, value) => {
@@ -32,6 +33,35 @@ const PieChart = () => {
     return arcPathGenerator()
   }, [pieSettings])
 
+  const isJson = (string) => {
+    try {
+      JSON.parse(string);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  const chartPaths = useMemo(() => {
+    const jsonValue = isJson(pieSettings.value) ? JSON.parse(pieSettings.value) : [];
+    if (pieSettings.value !== '' && jsonValue) {
+      const chartPathGenerator = d3.pie()(jsonValue)
+      return chartPathGenerator.map((c) => {
+        const chartPathArc = d3.arc()
+          .innerRadius(pieSettings.inner_radius)
+          .outerRadius(pieSettings.outer_radius)
+          .startAngle(c.startAngle)
+          .endAngle(c.endAngle)
+          .padAngle(pieSettings.pad_angle)
+          .cornerRadius(pieSettings.corner_radius)
+
+        return chartPathArc()
+      })
+    }
+    return []
+  }, [pieSettings])
+
+  const colors = ['#34ab34', '#a93d48', '#3da99C', '#a13da9', '#ecca22']
   return (
     <>
       <div className="D3Dashboard-Container">
@@ -43,6 +73,16 @@ const PieChart = () => {
               d={arcPath}
               style={{"transform": "translate(50%, 50%)"}}
             />
+            { chartPaths.map((p, i) => {
+              return (
+                <path
+                  fill={colors[i%colors.length]}
+                  key={i}
+                  d={p}
+                  style={{"transform": "translate(50%, 50%)"}}
+                />
+              )
+            })}
           </svg>
         </div>
       </div>
