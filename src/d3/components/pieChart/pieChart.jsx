@@ -61,7 +61,7 @@ const PieChart = () => {
     return []
   }, [pieSettings])
 
-  const colors = ['#34ab34', '#a93d48', '#3da99C', '#a13da9', '#ecca22']
+  const colors = d3.schemeCategory10
   return (
     <>
       <div className="D3Dashboard-Container">
