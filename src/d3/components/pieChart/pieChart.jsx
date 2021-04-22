@@ -64,7 +64,7 @@ const PieChart = () => {
   const colors = d3.schemeCategory10
   return (
     <>
-      <div className="D3Dashboard-Container">
+      <div className="D3Dashboard-PieChart-Container">
         <Parameters settings={pieSettings} editSetting={editSetting}/>
         <div className="Graph-Container">
           <svg width="200" height="200">

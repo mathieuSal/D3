@@ -1,6 +1,7 @@
 import React, {useState, useMemo} from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 import PieChart from './components/pieChart/pieChart'
+import Transitions from 'Src/d3/components/transitions/transitions'
 import './styles/d3Dashboard.scss'
 
 const D3Dashboard = () => {
@@ -18,7 +19,10 @@ const D3Dashboard = () => {
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
     >
-      <PieChart />
+      <div className="D3Dashboard">
+        <PieChart />
+        <Transitions />
+      </div>
     </ErrorBoundary>
   )
 }
