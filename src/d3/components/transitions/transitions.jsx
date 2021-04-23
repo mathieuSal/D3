@@ -5,13 +5,21 @@ const Transitions = () => {
   const [transitionSettings, setTransitionSettings] = useState({
     color_start: '#1f77b4',
     color_end: '#ff7f0e',
-    start_angle: 0,
-    end_angle: 6.3,
-    pad_angle: 0,
-    corner_radius: 20,
-    fill_color: '#e0e0e0',
+    ease_color: 'easeQuadIn',
+    ease: 'easeLinear',
     value: '[60, 40]',
   })
+
+  const TRANSITION_OPTIONS = [
+    'easeLinear',
+    'easeQuadIn',
+    'easeQuadOut',
+    'easeQuad',
+    'easeExpIn',
+    'easeExpOut',
+    'easeExp',
+
+  ]
 
   const editSetting = (parameter, value) => {
     setTransitionSettings({
@@ -30,15 +38,20 @@ const Transitions = () => {
         .attr("cx", 50)
         .style("fill", transitionSettings.color_start)
       .transition()
-        .delay(500)
-        .duration(2000)
+        .duration(1000)
+        .ease(d3[transitionSettings.ease])
         .attr("cx", 500)
       .transition()
         .duration(1000)
+        .ease(d3[transitionSettings.ease_color])
         .style("fill", transitionSettings.color_end)
       .transition()
         .duration(1000)
+        .ease(d3[transitionSettings.ease])
         .attr("cx", 50)
+      .transition()
+        .duration(1000)
+        .ease(d3[transitionSettings.ease_color])
         .style("fill", transitionSettings.color_start)
   }
 
@@ -52,7 +65,23 @@ const Transitions = () => {
           </svg>
         </div>
         <div className="Parameter-Color-Transition">
-          <span>here different transitions for color</span>
+          <select
+            name="ease-color-select"
+            id="ease-color-select"
+            value={transitionSettings.ease_color}
+            onChange={(e) => editSetting('ease_color', e.target.value)}
+          >
+            { TRANSITION_OPTIONS.map((option, i) => {
+              return (
+                <option
+                  key={`ease-color-select-${i}`}
+                  value={option}
+                >
+                  {option}
+                </option>
+              )
+            })}
+          </select>
         </div>
         <div className="Parameter-Color-Start">
           <input
@@ -69,7 +98,18 @@ const Transitions = () => {
           />
         </div>
         <div className="Parameter-Transition">
-          <span>here different transitions</span>
+          <select
+            name="ease-select"
+            id="ease-select"
+            value={transitionSettings.ease}
+            onChange={(e) => editSetting('ease', e.target.value)}
+          >
+            { TRANSITION_OPTIONS.map((option, i) => {
+              return (
+                <option key={`ease-select-${i}`} value={option}>{option}</option>
+              )
+            })}
+          </select>
         </div>
         <div className="Parameter-Run">
           <button onClick={runTransition}>Run</button>
