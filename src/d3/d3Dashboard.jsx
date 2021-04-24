@@ -2,6 +2,7 @@ import React, {useState, useMemo} from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 import PieChart from './components/pieChart/pieChart'
 import Transitions from 'Src/d3/components/transitions/transitions'
+import BarChart from 'Src/d3/components/barChart/barChart'
 import './styles/d3Dashboard.scss'
 
 const D3Dashboard = () => {
@@ -22,6 +23,7 @@ const D3Dashboard = () => {
       <div className="D3Dashboard">
         <PieChart />
         <Transitions />
+        <BarChart />
       </div>
     </ErrorBoundary>
   )
