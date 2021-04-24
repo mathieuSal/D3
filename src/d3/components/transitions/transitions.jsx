@@ -35,12 +35,12 @@ const Transitions = () => {
 
   const runTransition = () => {
     d3.select("#circle")
-        .attr("cx", 50)
+        .attr("cy", 50)
         .style("fill", transitionSettings.color_start)
       .transition()
         .duration(1000)
         .ease(d3[transitionSettings.ease])
-        .attr("cx", 500)
+        .attr("cy", 450)
       .transition()
         .duration(1000)
         .ease(d3[transitionSettings.ease_color])
@@ -48,7 +48,7 @@ const Transitions = () => {
       .transition()
         .duration(1000)
         .ease(d3[transitionSettings.ease])
-        .attr("cx", 50)
+        .attr("cy", 50)
       .transition()
         .duration(1000)
         .ease(d3[transitionSettings.ease_color])
@@ -59,7 +59,7 @@ const Transitions = () => {
     <>
       <div className="D3Dashboard-Transition-Container">
         <div className="Transition-Container">
-          <svg viewBox="0 0 550 100" width="550" height="100">
+          <svg viewBox="0 0 100 550" width="100" height="450">
             <circle id="circle" cx="50" cy="50" r="40" fill={transitionSettings.color_start}>
             </circle>
           </svg>
@@ -83,14 +83,12 @@ const Transitions = () => {
             })}
           </select>
         </div>
-        <div className="Parameter-Color-Start">
+        <div className="Parameter-Color-Picker">
           <input
             type="color"
             value={transitionSettings.color_start}
             onChange={(e) => editSetting('color_start', e.target.value)}
           />
-        </div>
-        <div className="Parameter-Color-End">
           <input
             type="color"
             value={transitionSettings.color_end}
