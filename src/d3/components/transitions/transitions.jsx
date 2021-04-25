@@ -7,7 +7,7 @@ const Transitions = () => {
     color_end: '#ff7f0e',
     ease_color: 'easeQuadIn',
     ease: 'easeLinear',
-    value: '[60, 40]',
+    duration: 1000
   })
 
   const TRANSITION_OPTIONS = [
@@ -38,7 +38,7 @@ const Transitions = () => {
         .attr("cy", 50)
         .style("fill", transitionSettings.color_start)
       .transition()
-        .duration(1000)
+        .duration(transitionSettings.duration)
         .ease(d3[transitionSettings.ease])
         .attr("cy", 450)
       .transition()
@@ -46,7 +46,7 @@ const Transitions = () => {
         .ease(d3[transitionSettings.ease_color])
         .style("fill", transitionSettings.color_end)
       .transition()
-        .duration(1000)
+        .duration(transitionSettings.duration)
         .ease(d3[transitionSettings.ease])
         .attr("cy", 50)
       .transition()
@@ -108,6 +108,12 @@ const Transitions = () => {
               )
             })}
           </select>
+          <input
+            type="number"
+            min={500}
+            value={transitionSettings.duration}
+            onChange={(e) => editSetting('duration', e.target.value)}
+          />
         </div>
         <div className="Parameter-Run">
           <button onClick={runTransition}>Run</button>
