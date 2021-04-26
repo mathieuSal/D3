@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import * as d3 from 'd3'
+import './styles/transitions.scss'
 
 const Transitions = () => {
   const [transitionSettings, setTransitionSettings] = useState({
