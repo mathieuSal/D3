@@ -99,6 +99,7 @@ const drawBars = () => {
   // update binGroups to include new points
   binGroups = newBinGroups.merge(binGroups)
   const barRects = binGroups.select("rect")
+    .attr("key", (d) => d.x0)
     .attr("x", d => xScale(d.x0) + barPadding)
     .attr("y", d => yScale(yAccessor(d)))
     .attr("height", d => (
@@ -160,9 +161,21 @@ const drawBars = () => {
     .text("Over-estimated")
 
   const tooltip = d3.select("#tooltip")
-  binGroups.select("rect")
+
+  const barRectsListeners = bounds.selectAll(".listeners")
+    .data(bins)
+    .enter().append("rect")
+    .attr("class", "listeners")
+    .attr("x", d => xScale(d.x0))
+    .attr("y", -dimensions.margin.top)
+    .attr("height", dimensions.boundedHeight + dimensions.margin.top)
+    .attr("width", d => d3.max([
+      0,
+      xScale(d.x1) - xScale(d.x0)
+    ]))
     .on("mouseenter", onMouseEnter)
     .on("mouseleave", onMouseLeave)
+
   function onMouseEnter(event, datum) {
     tooltip.style("opacity", 1)
     tooltip.select("#range")
@@ -210,9 +223,13 @@ const drawBars = () => {
       + `calc(-100% + ${y}px)`
       + `)`)
 
+    const hoveredBar = binGroups.select(`rect[key='${datum.x0}']`)
+    hoveredBar.classed("hovered", true)
   }
+
   function onMouseLeave() {
     tooltip.style("opacity", 0)
+    barRects.classed("hovered", false)
   }
 }
 

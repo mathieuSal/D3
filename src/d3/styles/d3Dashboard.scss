@@ -203,10 +203,10 @@
     .bin {
       fill: #686de0;
       transition: all 0.2s ease-out;
+    }
 
-      &:hover {
-        fill: #22a6b3;
-      }
+    .hovered {
+      fill: #22a6b3;
     }
 
     .mean {
@@ -224,6 +224,10 @@
       fill: #34495e;
       font-size: 1.4em;
       text-transform: capitalize;
+    }
+
+    .listeners {
+      fill: transparent;
     }
   }
 }
