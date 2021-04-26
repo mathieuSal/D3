@@ -1,9 +1,10 @@
-import React, {useState, useMemo} from 'react'
+import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 import PieChart from './components/pieChart/pieChart'
 import Transitions from 'Src/d3/components/transitions/transitions'
 import BarChart from 'Src/d3/components/barChart/barChart'
 import GaugeChart from 'Src/d3/components/gaugeChart/gaugeChart'
+import Viewbox from 'Src/d3/components/viewbox/viewbox'
 import './styles/d3Dashboard.scss'
 
 const D3Dashboard = () => {
@@ -29,6 +30,7 @@ const D3Dashboard = () => {
         </div>
         <div className="row">
           <GaugeChart />
+          <Viewbox />
         </div>
       </div>
     </ErrorBoundary>
