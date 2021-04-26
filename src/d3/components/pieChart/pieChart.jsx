@@ -1,6 +1,7 @@
 import React, {useState, useMemo} from 'react'
 import * as d3 from 'd3'
 import Parameters from './parameters/parameters'
+import './styles/pieChart.scss'
 
 const PieChart = () => {
   const [pieSettings, setPieSettings] = useState({

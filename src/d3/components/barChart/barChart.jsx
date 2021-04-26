@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import * as d3 from 'd3'
 import json from './data/data'
+import './styles/barChart.scss'
 
 const drawBars = () => {
   let dataset = json

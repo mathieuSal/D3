@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Parameter from 'Src/d3/components/pieChart/parameters/parameter'
+import Parameter from 'Src/d3/components/generic/parameter'
 
 const Parameters = ({editSetting, settings}) => {
   return (
