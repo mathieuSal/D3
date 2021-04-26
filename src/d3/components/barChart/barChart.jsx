@@ -163,6 +163,21 @@ const drawBars = () => {
   binGroups.select("rect")
     .on("mouseenter", onMouseEnter)
     .on("mouseleave", onMouseLeave)
+
+  const barRectsListeners = bounds.selectAll(".listeners")
+    .data(bins)
+    .enter().append("rect")
+    .attr("class", "listeners")
+    .attr("x", d => xScale(d.x0))
+    .attr("y", -dimensions.margin.top)
+    .attr("height", dimensions.boundedHeight + dimensions.margin.top)
+    .attr("width", d => d3.max([
+      0,
+      xScale(d.x1) - xScale(d.x0)
+    ]))
+    .on("mouseenter", onMouseEnter)
+    .on("mouseleave", onMouseLeave)
+
   function onMouseEnter(event, datum) {
     tooltip.style("opacity", 1)
     tooltip.select("#range")
