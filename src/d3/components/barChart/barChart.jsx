@@ -158,6 +158,62 @@ const drawBars = () => {
     .attr("x", dimensions.boundedWidth - 10)
     .attr("y", 0)
     .text("Over-estimated")
+
+  const tooltip = d3.select("#tooltip")
+  binGroups.select("rect")
+    .on("mouseenter", onMouseEnter)
+    .on("mouseleave", onMouseLeave)
+  function onMouseEnter(event, datum) {
+    tooltip.style("opacity", 1)
+    tooltip.select("#range")
+      .text([
+        datum.x0 < 0
+          ? `Under-estimated by`
+          : `Over-estimated by`,
+        Math.abs(datum.x0),
+        "to",
+        Math.abs(datum.x1),
+        "hours",
+      ].join(" "))
+
+    tooltip.select("#examples")
+      .html(
+        datum
+          .slice(0, 3)
+          .map(summaryAccessor)
+          .join("<br />")
+      )
+
+    tooltip.select("#count")
+      .text(Math.max(0, yAccessor(datum) - 2))
+
+    const percentDeveloperHoursValues = datum.map(d => (
+      (developerHoursAccessor(d) / actualHoursAccessor(d)) || 0
+    ))
+    const percentDeveloperHours = d3.mean(percentDeveloperHoursValues)
+    const formatHours = d => d3.format(",.2f")(Math.abs(d))
+    tooltip.select("#tooltip-bar-value")
+      .text(formatHours(percentDeveloperHours))
+    tooltip.select("#tooltip-bar-fill")
+      .style("width", `${percentDeveloperHours * 100}%`)
+    const x = xScale(datum.x0)
+      + (xScale(datum.x1) - xScale(datum.x0)) / 2
+      + dimensions.margin.left
+      + 15 // container padding
+
+    const y = yScale(yAccessor(datum))
+      + dimensions.margin.top
+      + 15 // container padding
+
+    tooltip.style("transform", `translate(`
+      + `calc( -50% + ${x}px),`
+      + `calc(-100% + ${y}px)`
+      + `)`)
+
+  }
+  function onMouseLeave() {
+    tooltip.style("opacity", 0)
+  }
 }
 
 const BarChart = () => {
@@ -167,6 +223,20 @@ const BarChart = () => {
 
   return (
     <div id="D3Dashboard-BarChart-Container" className="D3Dashboard-BarChart-Container">
+      <div id="tooltip" className="tooltip">
+        <div className="tooltip-range" id="range" />
+        <div className="tooltip-examples" id="examples" />
+        <div className="tooltip-value">
+          ...of <span id="count" /> tasks
+        </div>
+        <div className="tooltip-bar-value">
+          <b><span id="tooltip-bar-value" />%</b>
+          of the work was done by developers
+        </div>
+        <div className="tooltip-bar">
+          <div className="tooltip-bar-fill" id="tooltip-bar-fill" />
+        </div>
+      </div>
     </div>
   )
 }
