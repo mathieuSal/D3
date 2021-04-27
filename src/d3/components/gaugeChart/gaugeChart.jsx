@@ -46,6 +46,12 @@ const GaugeChart = () => {
     .cornerRadius(1)
     ()
 
+  const colorScale = d3.scaleLinear()
+    .domain([0, 1])
+    .range(["#dbdbe7", "#4834d4"])
+
+  const gradientSteps = colorScale.ticks(10)
+    .map(value => colorScale(value))
 
   return (
     <div className="D3Dashboard-GaugeChart-Container">
@@ -57,13 +63,32 @@ const GaugeChart = () => {
           ].join(" ")}
           width="9em"
         >
+          <defs>
+            <linearGradient
+              id="Gauge__gradient"
+              gradientUnits="userSpaceOnUse"
+              x1="-1"
+              x2="1"
+              y2="0">
+              {gradientSteps.map((color, index) => (
+                <stop
+                  key={color}
+                  stopColor={color}
+                  offset={`${
+                    index
+                    / (gradientSteps.length - 1)
+                  }`}
+                />
+              ))}
+            </linearGradient>
+          </defs>
           <path
             d={backgroundArc}
             fill="#dbdbe7"
           />
           <path
             d={filledArc}
-            fill="#9980FA"
+            fill="url(#Gauge__gradient)"
           />
         </svg>
       </div>
