@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import * as d3 from 'd3'
 import Parameter from 'Src/d3/components/generic/parameter/parameter'
+import { getCoordsOnArc } from 'Src/d3/d3Utility'
 import './styles/gaugeChart.scss'
 
 const GaugeChart = () => {
@@ -53,6 +54,11 @@ const GaugeChart = () => {
   const gradientSteps = colorScale.ticks(10)
     .map(value => colorScale(value))
 
+  const markerLocation = getCoordsOnArc(
+    angle,
+    1 - ((1 - 0.65) / 2),
+  )
+
   return (
     <div className="D3Dashboard-GaugeChart-Container">
       <div className="Gauge">
@@ -61,6 +67,9 @@ const GaugeChart = () => {
             -1, -1,
             2, 1,
           ].join(" ")}
+          style={{
+            "overflow": "visible"
+          }}
           width="9em"
         >
           <defs>
@@ -95,6 +104,14 @@ const GaugeChart = () => {
             y2="-0.65"
             stroke="white"
             strokeWidth="0.027"
+          />
+          <circle
+            cx={markerLocation[0]}
+            cy={markerLocation[1]}
+            r="0.2"
+            stroke="#2c3e50"
+            strokeWidth="0.01"
+            fill={colorScale(percent)}
           />
         </svg>
       </div>
