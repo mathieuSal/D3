@@ -25,10 +25,11 @@ const Viewbox = () => {
           width="100"
           height="100"
           style={{
-            border: "1px solid #ff7f0e"
+            border: "1px solid #cdcece"
           }}
         >
-          <circle cx="50" cy="50" r="40" fill="#ff7f0e"/>
+          <circle cx="50" cy="50" r="40" fill="#ff7f0e" />
+          <rect width="100" height="100" fill="none" stroke="#ff7f0e" />
         </svg>
       </div>
       <div className="Parameter Parameter-x">
