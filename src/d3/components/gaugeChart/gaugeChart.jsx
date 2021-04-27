@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import * as d3 from 'd3'
+import Parameter from 'Src/d3/components/generic/parameter/parameter'
 import './styles/gaugeChart.scss'
 
 const GaugeChart = () => {
@@ -26,24 +27,90 @@ const GaugeChart = () => {
     .cornerRadius(1)
     ()
 
+  const percentScale = d3.scaleLinear()
+    .domain([settings.min, settings.max])
+    .range([0, 1])
+  const percent = percentScale(settings.value)
+
+  const angleScale = d3.scaleLinear()
+    .domain([0, 1])
+    .range([-Math.PI / 2, Math.PI / 2])
+    .clamp(true)
+  const angle = angleScale(percent)
+
+  const filledArc = d3.arc()
+    .innerRadius(0.65)
+    .outerRadius(1)
+    .startAngle(-Math.PI / 2)
+    .endAngle(angle)
+    .cornerRadius(1)
+    ()
+
 
   return (
     <div className="D3Dashboard-GaugeChart-Container">
-      <svg
-        style={{
-          border: "1px solid pink"
-        }}
-        viewBox={[
-          -1, -1,
-          2, 1,
-        ].join(" ")}
-        width="9em"
-      >
-        <path
-          d={backgroundArc}
-          fill="#dbdbe7"
+      <div className="Gauge">
+        <svg
+          viewBox={[
+            -1, -1,
+            2, 1,
+          ].join(" ")}
+          width="9em"
+        >
+          <path
+            d={backgroundArc}
+            fill="#dbdbe7"
+          />
+          <path
+            d={filledArc}
+            fill="#9980FA"
+          />
+        </svg>
+      </div>
+      <div className="Parameter-Sliders">
+        <Parameter
+          label="Value"
+          max={settings.max}
+          settingLabel="value"
+          value={settings.value}
+          min={settings.min}
+          editSetting={editSetting}
         />
-      </svg>
+        <Parameter
+          label="Min"
+          max={200}
+          settingLabel="min"
+          value={settings.min}
+          min={0}
+          editSetting={editSetting}
+        />
+        <Parameter
+          label="Max"
+          max={200}
+          settingLabel="max"
+          value={settings.max}
+          min={0}
+          editSetting={editSetting}
+        />
+      </div>
+      <div className="Parameter-Inputs">
+        <div className="Parameter-Inputs-Label">
+          <label>Label: </label>
+          <input
+            type="text"
+            value={settings.label}
+            onChange={(e) => editSetting('label', e.target.value)}
+          />
+        </div>
+        <div className="Parameter-Inputs-Unit">
+          <label>Unit: </label>
+          <input
+            type="text"
+            value={settings.unit}
+            onChange={(e) => editSetting('unit', e.target.value)}
+          />
+        </div>
+      </div>
     </div>
   )
 }
