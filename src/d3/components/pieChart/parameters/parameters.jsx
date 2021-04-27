@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Parameter from 'Src/d3/components/generic/parameter'
+import Parameter from 'Src/d3/components/generic/parameter/parameter'
 
 const Parameters = ({editSetting, settings}) => {
   return (
@@ -18,6 +18,7 @@ const Parameters = ({editSetting, settings}) => {
         <input
           type="text"
           value={settings.value}
+          style={{"width": "60%"}}
           onChange={(e) => editSetting('value', e.target.value)}
         />
       </div>

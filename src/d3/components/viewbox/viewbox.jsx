@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Parameter from 'Src/d3/components/generic/parameter'
+import Parameter from 'Src/d3/components/generic/parameter/parameter'
 import './styles/viewbox.scss'
 
 const Viewbox = () => {
