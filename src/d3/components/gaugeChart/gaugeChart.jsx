@@ -90,6 +90,12 @@ const GaugeChart = () => {
             d={filledArc}
             fill="url(#Gauge__gradient)"
           />
+          <line
+            y1="-1"
+            y2="-0.65"
+            stroke="white"
+            strokeWidth="0.027"
+          />
         </svg>
       </div>
       <div className="Parameter-Sliders">
