@@ -12,11 +12,15 @@
   height: 400px;
   width: 300px;
 
-  .Gauge {
+  .Gauge-Container {
     align-items: center;
     display: flex;
     grid-area: 1 / 1 / 4 / 3;
     justify-content: center;
+
+    .Gauge {
+      text-align: center;
+    }
   }
   .Parameter-Sliders {
     grid-area: 4 / 1 / 7 / 2;
@@ -27,13 +31,14 @@
     display: grid;
     grid-area: 4 / 2 / 7 / 3;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 0;
     grid-row-gap: 0;
     padding: .5rem;
 
     &-Label { grid-area: 1 / 1 / 2 / 2; }
     &-Unit { grid-area: 2 / 1 / 3 / 2; }
+    &-Color { grid-area: 3 / 1 / 4 / 2; }
 
     label {
       color: #bdbdcf;
