@@ -80,6 +80,17 @@ module.exports ={
           },
         ],
       },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1048576
+            }
+          }
+        ]
+      },
     ]
   },
   resolve: {

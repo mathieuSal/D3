@@ -1,6 +1,17 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Inter-Regular.woff2?v=3.18") format("woff2"),
+  url("../fonts/Inter-Regular.woff?v=3.18") format("woff");
+}
+
 .D3Dashboard {
   .row {
     display: inline-flex;
+    font-family: 'Inter';
+    font-feature-settings: "zero","tnum";
     margin: .5rem 0;
   }
 }
