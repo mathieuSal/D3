@@ -5,6 +5,7 @@ import Transitions from 'Src/d3/components/transitions/transitions'
 import BarChart from 'Src/d3/components/barChart/barChart'
 import GaugeChart from 'Src/d3/components/gaugeChart/gaugeChart'
 import Viewbox from 'Src/d3/components/viewbox/viewbox'
+import BarChartCustom from 'Src/d3/components/barChartCustom/barChartCustom'
 import './styles/d3Dashboard.scss'
 
 const D3Dashboard = () => {
@@ -31,6 +32,7 @@ const D3Dashboard = () => {
         <div className="row">
           <GaugeChart />
           <Viewbox />
+          <BarChartCustom />
         </div>
       </div>
     </ErrorBoundary>
