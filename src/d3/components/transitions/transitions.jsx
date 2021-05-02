@@ -3,13 +3,18 @@ import * as d3 from 'd3'
 import './styles/transitions.scss'
 
 const Transitions = () => {
+  const [initialState, setInitialState] = useState({
+    color_start: '#1f77b4',
+    color_end: '#ff7f0e',
+  })
+
   const [transitionSettings, setTransitionSettings] = useState({
     color_start: '#1f77b4',
     color_end: '#ff7f0e',
-    ease_color: 'easeQuadIn',
     ease: 'easeLinear',
     duration: 1000
   })
+  const [transitionsProgram, setTransitionProgram] = useState([])
 
   const TRANSITION_OPTIONS = [
     'easeLinear',
@@ -19,10 +24,15 @@ const Transitions = () => {
     'easeExpIn',
     'easeExpOut',
     'easeExp',
-
   ]
 
   const editSetting = (parameter, value) => {
+    if (!transitionsProgram.length) {
+      setInitialState({
+        ...initialState,
+        [parameter]: value,
+      })
+    }
     setTransitionSettings({
       ...transitionSettings,
       [parameter]: value,
@@ -33,56 +43,71 @@ const Transitions = () => {
     document.getElementById('circle').removeAttribute('style')
   }, [transitionSettings.color_start])
 
-
-  const runTransition = () => {
-    d3.select("#circle")
-        .attr("cy", 50)
-        .style("fill", transitionSettings.color_start)
-      .transition()
-        .duration(transitionSettings.duration)
-        .ease(d3[transitionSettings.ease])
-        .attr("cy", 450)
-      .transition()
-        .duration(1000)
-        .ease(d3[transitionSettings.ease_color])
-        .style("fill", transitionSettings.color_end)
-      .transition()
-        .duration(transitionSettings.duration)
-        .ease(d3[transitionSettings.ease])
-        .attr("cy", 50)
-      .transition()
-        .duration(1000)
-        .ease(d3[transitionSettings.ease_color])
-        .style("fill", transitionSettings.color_start)
+  const addTransition = () => {
+    setTransitionProgram([...transitionsProgram, transitionSettings])
   }
+
+  let i = 0;
+  function chainTransition() {
+    console.log(transitionsProgram[i])
+    d3.select('#circle').transition()
+      .duration(transitionsProgram[i].duration)
+      .attr("cy", i % 2 === 0 ? 450 : 50)
+      .style("fill", transitionsProgram[i].color_end)
+      .ease(d3[transitionsProgram[i].ease])
+      .each("end", function(d, i) {
+        i++;
+        if (i > transitionsProgram.length) {
+          d3.select('#circle')
+            .transition()
+              .duration(1000)
+              .attr("cy", 50)
+              .style("fill", initialState.color_start)
+          return;
+        }
+        chainTransition();//do the transition
+      })
+  }
+
+  const runTransitionProgram = () => {
+    d3.select('#circle')
+      .transition()
+        .attr("cy", 50)
+        .style("fill", initialState.color_start)
+        .each("end", function() {
+          chainTransition()
+        })
+  }
+
+  // const runTransition = () => {
+  //   d3.select("#circle")
+  //       .attr("cy", 50)
+  //       .style("fill", transitionSettings.color_start)
+  //     .transition()
+  //       .duration(transitionSettings.duration)
+  //       .ease(d3[transitionSettings.ease])
+  //       .attr("cy", 450)
+  //     .transition()
+  //       .duration(1000)
+  //       .ease(d3[transitionSettings.ease])
+  //       .style("fill", transitionSettings.color_end)
+  //     .transition()
+  //       .duration(transitionSettings.duration)
+  //       .ease(d3[transitionSettings.ease])
+  //       .attr("cy", 50)
+  //     .transition()
+  //       .duration(1000)
+  //       .ease(d3[transitionSettings.ease])
+  //       .style("fill", transitionSettings.color_start)
+  // }
 
   return (
     <>
       <div className="D3Dashboard-Transition-Container">
         <div className="Transition-Container">
           <svg viewBox="0 0 100 550" width="100" height="450">
-            <circle id="circle" cx="50" cy="50" r="40" fill={transitionSettings.color_start}>
-            </circle>
+            <circle id="circle" cx="50" cy="50" r="40" fill={initialState.color_start} />
           </svg>
-        </div>
-        <div className="Parameter-Color-Transition">
-          <select
-            name="ease-color-select"
-            id="ease-color-select"
-            value={transitionSettings.ease_color}
-            onChange={(e) => editSetting('ease_color', e.target.value)}
-          >
-            { TRANSITION_OPTIONS.map((option, i) => {
-              return (
-                <option
-                  key={`ease-color-select-${i}`}
-                  value={option}
-                >
-                  {option}
-                </option>
-              )
-            })}
-          </select>
         </div>
         <div className="Parameter-Color-Picker">
           <input
@@ -117,7 +142,9 @@ const Transitions = () => {
           />
         </div>
         <div className="Parameter-Run">
-          <button onClick={runTransition}>Run</button>
+          <button onClick={runTransitionProgram}>Run Program</button>
+          {/*<button onClick={runTransition}>Run</button>*/}
+          <button onClick={addTransition}>Add</button>
         </div>
       </div>
     </>
