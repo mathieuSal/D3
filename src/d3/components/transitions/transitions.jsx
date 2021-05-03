@@ -55,17 +55,18 @@ const Transitions = () => {
       .attr("cy", i % 2 === 0 ? 450 : 50)
       .style("fill", transitionsProgram[i].color_end)
       .ease(d3[transitionsProgram[i].ease])
-      .each("end", function(d, i) {
+      .on("end", () => {
         i++;
-        if (i > transitionsProgram.length) {
+        if (i > transitionsProgram.length - 1) {
           d3.select('#circle')
             .transition()
               .duration(1000)
               .attr("cy", 50)
               .style("fill", initialState.color_start)
           return;
+        } else {
+          chainTransition();//do the transition
         }
-        chainTransition();//do the transition
       })
   }
 
@@ -74,32 +75,10 @@ const Transitions = () => {
       .transition()
         .attr("cy", 50)
         .style("fill", initialState.color_start)
-        .each("end", function() {
+        .on("end", () => {
           chainTransition()
         })
   }
-
-  // const runTransition = () => {
-  //   d3.select("#circle")
-  //       .attr("cy", 50)
-  //       .style("fill", transitionSettings.color_start)
-  //     .transition()
-  //       .duration(transitionSettings.duration)
-  //       .ease(d3[transitionSettings.ease])
-  //       .attr("cy", 450)
-  //     .transition()
-  //       .duration(1000)
-  //       .ease(d3[transitionSettings.ease])
-  //       .style("fill", transitionSettings.color_end)
-  //     .transition()
-  //       .duration(transitionSettings.duration)
-  //       .ease(d3[transitionSettings.ease])
-  //       .attr("cy", 50)
-  //     .transition()
-  //       .duration(1000)
-  //       .ease(d3[transitionSettings.ease])
-  //       .style("fill", transitionSettings.color_start)
-  // }
 
   return (
     <>
@@ -143,7 +122,6 @@ const Transitions = () => {
         </div>
         <div className="Parameter-Run">
           <button onClick={runTransitionProgram}>Run Program</button>
-          {/*<button onClick={runTransition}>Run</button>*/}
           <button onClick={addTransition}>Add</button>
         </div>
       </div>
