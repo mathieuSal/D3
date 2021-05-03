@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import * as d3 from 'd3'
-import './styles/transitions.scss'
+import Scrollbar from 'react-scrollbars-custom'
 import TransitionStep from 'Src/d3/components/transitions/transitionStep'
+import './styles/transitions.scss'
 
 const Transitions = () => {
   const [initialState, setInitialState] = useState({
@@ -162,13 +163,18 @@ const Transitions = () => {
         </div>
         <div className="Transition-List">
           { transitionsProgram.length
-            ? transitionsProgram.map((step, i) => {
-              return (
-                <div className="Transition-Step" id={`Transition-Step-${i}`}>
-                  <TransitionStep step={step} key={i} />
-                </div>
-              )
-            })
+            ? <Scrollbar
+              noScrollX
+              style={{width: '150px', height: '250px'}}
+            > { transitionsProgram.map((step, i) => {
+                return (
+                  <div className="Transition-Step" id={`Transition-Step-${i}`}>
+                    <TransitionStep step={step} key={i} />
+                  </div>
+                )
+              })
+            }
+            </Scrollbar>
             : <span>no program yet</span>
           }
         </div>
