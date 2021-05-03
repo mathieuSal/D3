@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as d3 from 'd3'
 import './styles/transitions.scss'
+import TransitionStep from 'Src/d3/components/transitions/transitionStep'
 
 const Transitions = () => {
   const [initialState, setInitialState] = useState({
@@ -105,6 +106,7 @@ const Transitions = () => {
             { TRANSITION_TYPE_OPTIONS.map((option) => {
               return (
                 <button
+                  key={option.value}
                   className={`${transitionSettings.transition_type === option.value ? 'checked' : ''}`}
                   onClick={() => editSetting('transition_type', option.value)}
                 >
@@ -159,7 +161,16 @@ const Transitions = () => {
           </svg>
         </div>
         <div className="Transition-List">
-          {transitionsProgram.length}
+          { transitionsProgram.length
+            ? transitionsProgram.map((step, i) => {
+              return (
+                <div className="Transition-Step" id={`Transition-Step-${i}`}>
+                  <TransitionStep step={step} key={i} />
+                </div>
+              )
+            })
+            : <span>no program yet</span>
+          }
         </div>
         <div className="Parameter-Run">
           <button onClick={runTransitionProgram}>Run Program</button>

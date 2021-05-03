@@ -88,6 +88,22 @@
     }
   }
   .Transition-Container { grid-area: 2 / 1 / 6 / 2; }
-  .Transition-List { grid-area: 2 / 2 / 5 / 3; }
+  .Transition-List {
+    font-size: 12px;
+    grid-area: 2 / 2 / 5 / 3;
+
+    .Transition-Step {
+      padding: 5px;
+      border-bottom: 1px solid;
+
+      &:last-child {
+        border: none;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
   .Parameter-Run { grid-area: 5 / 2 / 6 / 3; }
 }
