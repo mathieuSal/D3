@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import * as d3 from 'd3'
 import Scrollbar from 'react-scrollbars-custom'
 import TransitionStep from 'Src/d3/components/transitions/transitionStep'
+import chainTransition from 'Src/d3/components/transitions/chainTransition'
 import './styles/transitions.scss'
 
 const Transitions = () => {
@@ -67,36 +67,8 @@ const Transitions = () => {
     setTransitionProgram([...transitionsProgram, transitionSettings])
   }
 
-  let i = 0;
-  function chainTransition() {
-    d3.select('#circle').transition()
-      .duration(transitionsProgram[i].duration)
-      .attr("cy", i % 2 === 0 ? 400 : 50)
-      .style("fill", transitionsProgram[i].color_end)
-      .ease(d3[transitionsProgram[i].ease])
-      .on("end", () => {
-        i++;
-        if (i > transitionsProgram.length - 1) {
-          d3.select('#circle')
-            .transition()
-              .duration(1000)
-              .attr("cy", 50)
-              .style("fill", initialState.color_start)
-          return;
-        } else {
-          chainTransition();//do the transition
-        }
-      })
-  }
-
   const runTransitionProgram = () => {
-    d3.select('#circle')
-      .transition()
-        .attr("cy", 50)
-        .style("fill", initialState.color_start)
-        .on("end", () => {
-          chainTransition()
-        })
+    chainTransition('#circle', transitionsProgram, initialState)
   }
 
   return (
@@ -168,8 +140,8 @@ const Transitions = () => {
               style={{width: '150px', height: '250px'}}
             > { transitionsProgram.map((step, i) => {
                 return (
-                  <div className="Transition-Step" id={`Transition-Step-${i}`}>
-                    <TransitionStep step={step} key={i} />
+                  <div className="Transition-Step" id={`Transition-Step-${i}`} key={i} >
+                    <TransitionStep step={step} />
                   </div>
                 )
               })
