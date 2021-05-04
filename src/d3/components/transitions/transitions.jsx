@@ -137,7 +137,7 @@ const Transitions = () => {
           { transitionsProgram.length
             ? <Scrollbar
               noScrollX
-              style={{width: '150px', height: '250px'}}
+              style={{width: '150px', height: '280px'}}
             > { transitionsProgram.map((step, i) => {
                 return (
                   <div className="Transition-Step" id={`Transition-Step-${i}`} key={i} >
@@ -151,7 +151,13 @@ const Transitions = () => {
           }
         </div>
         <div className="Parameter-Run">
-          <button onClick={runTransitionProgram}>Run Program</button>
+          <button
+            onClick={runTransitionProgram}
+            className={`${!transitionsProgram.length ? 'disabled' : ''}`}
+            disabled={!transitionsProgram.length}
+          >
+            Run Program
+          </button>
         </div>
       </div>
     </>
