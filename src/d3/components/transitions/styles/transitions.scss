@@ -87,7 +87,11 @@
       }
     }
   }
-  .Transition-Container { grid-area: 2 / 1 / 6 / 2; }
+  .Transition-Container {
+    display: flex;
+    grid-area: 2 / 1 / 6 / 2;
+    justify-content: center;
+  }
   .Transition-List {
     font-size: 12px;
     grid-area: 2 / 2 / 5 / 3;
@@ -105,5 +109,39 @@
       }
     }
   }
-  .Parameter-Run { grid-area: 5 / 2 / 6 / 3; }
+  .Parameter-Run {
+    align-items: center;
+    display: flex;
+    grid-area: 5 / 2 / 6 / 3;
+    justify-content: center;
+
+    button {
+      background-color: #fff;
+      border: 2px solid #4ac0ee;
+      cursor: pointer;
+      color: #4ac0ee;
+      font-weight: bold;
+      padding: 1rem;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: #4ac0ee;
+        border: 2px solid #fff;
+        color: #fff
+      }
+
+      &.disabled {
+        background-color: #fff;
+        border: 2px solid #cecece;
+        color: #cecece;
+        cursor: default;
+
+        &:hover {
+          background-color: #fff;
+          border: 2px solid #cecece;
+          color: #cecece;
+        }
+      }
+    }
+  }
 }
