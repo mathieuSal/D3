@@ -40,7 +40,9 @@ const drawBars = () => {
 
   bounds.append("g")
     .attr("class", "x-axis")
-    .style("transform", `translateY(${
+    .style("transform", `translate(${
+      -dimensions.margin.left
+    }px, ${
       dimensions.boundedHeight
     }px)`)
     .append("text")
@@ -48,13 +50,15 @@ const drawBars = () => {
 
   bounds.append("g")
     .attr("class", "y-axis")
+    .style("transform", `translateY(${
+      -dimensions.margin.top
+    }px)`)
     .append("text")
     .attr("class", "y-axis-label")
 
   const xScale = d3.scaleBand()
     .domain(data.map(nameAccessor))
     .range([dimensions.margin.left, dimensions.width - dimensions.margin.right])
-    .padding(0.1)
 
   const yScale = d3.scaleLinear()
     .domain([0, d3.max(data, valueAccessor)])
@@ -72,12 +76,12 @@ const drawBars = () => {
     .call(yAxisGenerator)
 
   const xAxisLabel = xAxis.select(".x-axis-label")
-    .attr("x", dimensions.boundedWidth / 2)
+    .attr("x", dimensions.boundedWidth / 2 + dimensions.margin.left)
     .attr("y", dimensions.margin.bottom - 10)
     .text("Letter")
   const yAxisLabel = yAxis.select(".y-axis-label")
-    .attr("x", dimensions.boundedHeight / 2)
-    .attr("y", dimensions.margin.bottom - 10)
+    .attr("x", dimensions.boundedHeight / 2 + dimensions.margin.top)
+    .attr("y", dimensions.margin.bottom - 5)
     .style("transform", "rotate(90deg)")
     .text("Value")
 }
