@@ -57,8 +57,9 @@ const drawBars = () => {
     .attr("class", "y-axis-label")
 
   const xScale = d3.scaleBand()
-    .domain(data.map(nameAccessor))
+    .domain(d3.range(data.length))
     .range([dimensions.margin.left, dimensions.width - dimensions.margin.right])
+    .padding(0.1)
 
   const yScale = d3.scaleLinear()
     .domain([0, d3.max(data, valueAccessor)])
@@ -66,6 +67,8 @@ const drawBars = () => {
     .nice()
 
   const xAxisGenerator = d3.axisBottom()
+    .tickFormat(i => data[i].name)
+    .tickSizeOuter(0)
     .scale(xScale)
   const xAxis = bounds.select(".x-axis")
     .call(xAxisGenerator)
@@ -84,6 +87,17 @@ const drawBars = () => {
     .attr("y", dimensions.margin.bottom - 5)
     .style("transform", "rotate(90deg)")
     .text("Value")
+
+  bounds.append("g")
+    .selectAll("rect")
+    .data(data)
+    .join("rect")
+      .attr("x", (d, i) => xScale(i) - dimensions.margin.left)
+      .attr("y", d => yScale(valueAccessor(d)) - dimensions.margin.top)
+      .attr("height", d => (
+        yScale(0) - yScale(valueAccessor(d))
+      ))
+      .attr("width", d => xScale.bandwidth())
 }
 
 export default drawBars
