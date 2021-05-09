@@ -97,7 +97,8 @@ const drawBars = () => {
       .attr("height", d => (
         yScale(0) - yScale(valueAccessor(d))
       ))
-      .attr("width", d => xScale.bandwidth())
+      .attr("width", () => xScale.bandwidth())
+      .attr("fill", (d, i) => d3.schemeCategory10[i%10])
 }
 
 export default drawBars
