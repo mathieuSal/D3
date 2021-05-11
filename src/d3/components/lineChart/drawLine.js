@@ -87,6 +87,16 @@ const drawLine = () =>  {
         .x((d) => xScale(dateAccessor(d)))
         .y((d) => yScale(valueAccessor(d)))
       )
+
+  bounds.append("path")
+    .datum(dataset)
+      .attr("class", "area")
+      .attr("fill", "lightsteelblue")
+      .attr("d", d3.area()
+        .x((d) => xScale(dateAccessor(d)))
+        .y0(dimensions.boundedHeight)
+        .y1((d) => yScale(valueAccessor(d)))
+      )
 }
 
 export default drawLine
