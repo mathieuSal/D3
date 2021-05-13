@@ -99,8 +99,18 @@ const drawLine = () =>  {
         .y0(dimensions.boundedHeight)
         .y1((d) => yScale(valueAccessor(d)))
       )
-    .on("mousemove", onMouseEnter)
-    .on("mouseleave", onMouseLeave)
+
+  bounds.append("path")
+    .datum(dataset)
+      .attr("class", "listeners")
+      .attr("fill", "transparent")
+      .attr("d", d3.area()
+        .x((d) => xScale(dateAccessor(d)))
+        .y0(dimensions.boundedHeight)
+        .y1(dimensions.boundedHeight - dimensions.height)
+      )
+      .on("mousemove", onMouseEnter)
+      .on("mouseleave", onMouseLeave)
 
   function onMouseEnter(event, datum) {
     const currentXPosition = d3.pointer(event)[0];
