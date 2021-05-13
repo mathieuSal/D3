@@ -7,4 +7,34 @@
   position: relative;
   height: 300px;
   width: 600px;
+
+  .tooltip-line-chart {
+    background: #fff;
+    box-shadow: 0 6px 8px rgb(52 73 94 / 20%), 0 1px 1px rgb(52 73 94 / 10%);
+    left: 0;
+    opacity: 0;
+    padding: 0.6em 1em;
+    pointer-events: none;
+    position: absolute;
+    top: -12px;
+    transition: all 0.2s ease-out;
+    z-index: 10;
+
+    &::before {
+      background: white;
+      border-color: transparent rgb(221, 221, 221) rgb(221, 221, 221) transparent;
+      border-image: initial;
+      border-style: solid;
+      border-width: 1px;
+      bottom: 0;
+      content: "";
+      height: 12px;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, 50%) rotate(45deg);
+      transform-origin: center center;
+      width: 12px;
+      z-index: 10;
+    }
+  }
 }
