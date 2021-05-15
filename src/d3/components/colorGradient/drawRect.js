@@ -1,13 +1,17 @@
 import * as d3 from 'd3'
+import data from 'Src/d3/components/barChartCustom/data/data'
 
-const drawRect = () => {
-  const domainData = [0, 5000]
-  const colorRange = ['#1f77b4', '#ff7f0e']
+const drawRect = (params) => {
+  // reset graph
+  document.getElementById('Gradient-Graph').innerHTML = ""
+
+  const rangeData = [params.range_min, params.range_max]
+  const colorRange = [params.color_min, params.color_max]
   // DIMENSIONS
   const width = 600
   let dimensions = {
     width: width,
-    height: width * 0.2,
+    height: width * 0.15,
     margin: {
       top: 35,
       right: 50,
@@ -23,29 +27,48 @@ const drawRect = () => {
     - dimensions.margin.bottom
 
   // INITIATE CHART
-  const wrapper = d3.select("#D3Dashboard-ColorGradient-Container")
+  const wrapper = d3.select("#Gradient-Graph")
     .append("svg")
     .attr("width", dimensions.width)
     .attr("height", dimensions.height)
   const bounds = wrapper.append("g")
+    .style("transform", `translate(${
+      dimensions.margin.left
+    }px, ${
+      -dimensions.margin.top
+    }px)`)
 
+  bounds.append("g")
+    .attr("class", "x-axis")
+    .style("transform", "translate(0px, 55px)")
+
+  const domainData = [dimensions.margin.left, dimensions.width - dimensions.margin.right]
   const xScale = d3.scaleLog()
     .domain(domainData)
-    .range([dimensions.margin.left, dimensions.width - dimensions.margin.right])
+    .range(rangeData)
+
+  const linearScale = d3.scaleLinear()
+    .domain(rangeData)
+    .range([0, dimensions.boundedWidth])
+
+  const logAxisGenerator = d3.axisTop()
+    .scale(linearScale)
+
+  const xAxis = bounds.select(".x-axis")
+    .call(logAxisGenerator)
 
   const diff = domainData[1] - domainData[0]
 
   const step = diff / (colorRange.length - 1)
-  const forInversion = d3.range(colorRange.length).map((d) => domainData[0] + d * step)
+  const forInversion = d3.range(colorRange.length).map((d) => rangeData[0] + d * step)
   const logColorValues = forInversion.map(xScale.invert)
   const colorScale = d3.scaleLog()
     .domain(logColorValues)
     .range(colorRange)
-
-  const num_rectangles = 100
+  const num_rectangles = 1000
 
   const rectStep = diff/num_rectangles
-  const rectData = d3.range(num_rectangles).map((d) => domainData[0] + d * rectStep)
+  const rectData = d3.range(num_rectangles).map((d) => rangeData[0] + d * rectStep)
 
   bounds.selectAll("rect").data(rectData).enter()
     .append("rect")
