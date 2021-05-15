@@ -2,9 +2,21 @@
   background-color: #fff;
   border: 1px solid;
   border-radius: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0;
+  grid-row-gap: 0;
   margin: 1rem;
   padding: 15px;
   position: relative;
   height: 300px;
   width: 600px;
+
+  .Gradient-Result { grid-area: 1 / 1 / 2 / 3; }
+  .Gradient-Graph { grid-area: 2 / 1 / 4 / 3; }
+  .Gradient-Range-Min { grid-area: 4 / 1 / 5 / 2; }
+  .Gradient-Range-Max { grid-area: 5 / 1 / 6 / 2; }
+  .Gradient-Color-Min { grid-area: 4 / 2 / 5 / 3; }
+  .Gradient-Color-Max { grid-area: 5 / 2 / 6 / 3; }
 }
