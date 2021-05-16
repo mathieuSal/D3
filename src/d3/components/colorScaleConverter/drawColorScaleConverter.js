@@ -12,7 +12,7 @@ const drawColorScaleConverter = (settings) => {
     height: 250,
     margin: {
       top: 35,
-      right: 10,
+      right: 50,
       bottom: 50,
       left: 50,
     },
@@ -71,6 +71,8 @@ const drawColorScaleConverter = (settings) => {
 
   // axis
   const xAxisGenerator = d3.axisBottom()
+    .tickFormat(i => numCompactFormatter(i))
+    .tickSizeOuter(0)
     .scale(xScale)
   const xAxis = bounds.select(".x-axis")
     .call(xAxisGenerator)
@@ -158,6 +160,26 @@ const getDataset = (domain, steps) => {
     data.push(value)
   }
   return data
+}
+
+const numCompactFormatter = (value, accuracy = 1) => {
+  if (Math.abs(Number(value)) >= 1.0e9) {
+    let num = Math.abs(Number(value)) / 1.0e9
+    return num.toFixed(accuracy) + 'B'
+  }
+
+  if (Math.abs(Number(value)) >= 1.0e6) {
+    let num = Math.abs(Number(value)) / 1.0e6
+    return num.toFixed(accuracy) + 'M'
+  }
+
+  if (Math.abs(Number(value)) >= 1.0e3) {
+    let num = Math.abs(Number(value)) / 1.0e3
+    return num.toFixed(accuracy) + 'k'
+  }
+
+  return value
+
 }
 
 export default drawColorScaleConverter
