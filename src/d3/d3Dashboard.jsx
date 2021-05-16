@@ -1,5 +1,6 @@
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
+import ColorScaleConverter from 'Src/d3/components/colorScaleConverter/colorScaleConverter'
 import PieChart from './components/pieChart/pieChart'
 import Transitions from 'Src/d3/components/transitions/transitions'
 import BarChart from 'Src/d3/components/barChart/barChart'
@@ -27,13 +28,16 @@ const D3Dashboard = () => {
     >
       <div className="D3Dashboard">
         <div className="row">
+          <ColorScaleConverter />
           <PieChart />
           <Transitions />
-          <BarChart />
         </div>
         <div className="row">
           <GaugeChart />
           <Viewbox />
+        </div>
+        <div className="row">
+          <BarChart />
           <BarChartCustom />
         </div>
         <div className="row">

@@ -5,8 +5,6 @@ const drawRect = (params) => {
   // reset graph
   document.getElementById('Gradient-Graph').innerHTML = ""
 
-  const rangeData = [params.range_min, params.range_max]
-  const colorRange = [params.color_min, params.color_max]
   // DIMENSIONS
   const width = 600
   let dimensions = {
@@ -34,15 +32,16 @@ const drawRect = (params) => {
   const bounds = wrapper.append("g")
     .style("transform", `translate(${
       dimensions.margin.left
-    }px, ${
-      -dimensions.margin.top
-    }px)`)
+    }px, -75px)`)
 
   bounds.append("g")
     .attr("class", "x-axis")
-    .style("transform", "translate(0px, 55px)")
+    .style("transform", "translate(0px, 100px)")
 
   const domainData = [dimensions.margin.left, dimensions.width - dimensions.margin.right]
+  const rangeData = [params.range_min, params.range_max]
+  const colorRange = [params.color_min, params.color_max]
+
   const xScale = d3.scaleLog()
     .domain(domainData)
     .range(rangeData)
