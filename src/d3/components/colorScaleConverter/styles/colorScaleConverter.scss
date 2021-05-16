@@ -1,0 +1,55 @@
+.D3Dashboard-ColorScaleConverter-Container {
+  background-color: #fff;
+  border: 1px solid;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  margin: 1rem;
+  padding: 15px;
+  position: relative;
+  height: 450px;
+  width: 600px;
+
+  .Converter-Graph-Container {
+    grid-area: 1 / 1 / 4 / 4;
+
+    .tooltip-converter {
+      background: #fff;
+      box-shadow: 0 6px 8px rgb(52 73 94 / 20%), 0 1px 1px rgb(52 73 94 / 10%);
+      left: 0;
+      opacity: 0;
+      padding: 0.6em 1em;
+      pointer-events: none;
+      position: absolute;
+      top: -12px;
+      transition: all 0.2s ease-out;
+      z-index: 10;
+
+      &::before {
+        background: white;
+        border-color: transparent rgb(221, 221, 221) rgb(221, 221, 221) transparent;
+        border-image: initial;
+        border-style: solid;
+        border-width: 1px;
+        bottom: 0;
+        content: "";
+        height: 12px;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, 50%) rotate(45deg);
+        transform-origin: center center;
+        width: 12px;
+        z-index: 10;
+      }
+    }
+  }
+  .Converter-Range-Min { grid-area: 4 / 1 / 5 / 2; }
+  .Converter-Range-Max { grid-area: 5 / 1 / 6 / 2; }
+  .Converter-Color-Start { grid-area: 4 / 2 / 5 / 3; }
+  .Converter-Color-End { grid-area: 5 / 2 / 6 / 3; }
+  .Converter-Steps { grid-area: 4 / 3 / 5 / 4; }
+  //.Converter- { grid-area: 5 / 3 / 6 / 4; }
+}
