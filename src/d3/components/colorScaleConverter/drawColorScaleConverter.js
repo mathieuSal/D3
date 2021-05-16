@@ -8,7 +8,7 @@ const drawColorScaleConverter = (settings) => {
   const width = 600
   let dimensions = {
     width: width,
-    height: width * 0.3,
+    height: 250,
     margin: {
       top: 35,
       right: 10,
@@ -76,6 +76,18 @@ const drawColorScaleConverter = (settings) => {
     .scale(yScale)
   const yAxis = bounds.select(".y-axis")
     .call(yAxisGenerator)
+
+  // log result
+  if (settings.get_log) {
+    const result = dataset.map((data) => {
+      return {
+        value: Math.round(data),
+        color: d3.color(colorScale(Math.log(data))).formatHex()
+      }
+    })
+    console.log(JSON.stringify(result))
+    console.log(result)
+  }
 
   // Draw line
   bounds.append("path")

@@ -8,7 +8,8 @@ const ColorScaleConverter = () => {
     domain_max: 50000,
     color_start: '#1f77b4',
     color_end: '#15235d',
-    steps: 50
+    steps: 50,
+    get_log: false,
   })
 
   useEffect(() => {
@@ -68,6 +69,16 @@ const ColorScaleConverter = () => {
           value={settings.steps}
           onChange={(e) => editSetting('steps', e.target.value)}
         />
+      </div>
+      <div className="Converter-GetLog">
+        <input
+          type="checkbox"
+          id="getLog"
+          name="getLog"
+          checked={!!settings.get_log}
+          onChange={() => editSetting('get_log', !settings.get_log)}
+        />
+        <label htmlFor="getLog">Get Log</label>
       </div>
     </div>
   )
