@@ -26,7 +26,8 @@ const drawColorScaleConverter = (settings) => {
 
   const xDomain = [settings.domain_min, settings.domain_max]
   const colorRange = [settings.color_start, settings.color_end]
-  const dataset = getDataset(xDomain, settings.steps)
+  const dataset = getDataset(xDomain, settings.steps -1)
+  const logAccessor = d => Math.log(d)
 
   // init graph
   const wrapper = d3.select("#Converter-Graph")
@@ -60,11 +61,11 @@ const drawColorScaleConverter = (settings) => {
     .range([0, dimensions.boundedWidth])
 
   const colorScale = d3.scaleLinear()
-    .domain([0, Math.log(xDomain[1])])
+    .domain([0, logAccessor(xDomain[1])])
     .range(colorRange);
 
   const yScale = d3.scaleLinear()
-    .domain([0, Math.log(xDomain[1])])
+    .domain([0, logAccessor(xDomain[1])])
     .range([dimensions.boundedHeight, 0])
 
   // axis
@@ -82,7 +83,7 @@ const drawColorScaleConverter = (settings) => {
     const result = dataset.map((data) => {
       return {
         value: Math.round(data),
-        color: d3.color(colorScale(Math.log(data))).formatHex()
+        color: d3.color(colorScale(logAccessor(data))).formatHex()
       }
     })
     console.log(JSON.stringify(result))
@@ -97,7 +98,7 @@ const drawColorScaleConverter = (settings) => {
       .attr("stroke-width", 1.5)
       .attr("d", d3.line()
         .x((d) => xScale(d))
-        .y((d) => yScale(Math.log(d)))
+        .y((d) => yScale(logAccessor(d)))
       )
 
   bounds.append("path")
@@ -107,7 +108,7 @@ const drawColorScaleConverter = (settings) => {
     .attr("d", d3.area()
       .x((d) => xScale(d))
       .y0(dimensions.boundedHeight)
-      .y1(() => yScale(Math.log(xDomain[1])))
+      .y1(() => yScale(logAccessor(xDomain[1])))
     )
     .on("mousemove", onMouseEnter)
     .on("mouseleave", onMouseLeave)
@@ -117,8 +118,8 @@ const drawColorScaleConverter = (settings) => {
   function onMouseEnter(event) {
     const currentXPosition = d3.pointer(event)[0];
     const xValue = xScale.invert(currentXPosition);
-    const colorValue = colorScale(Math.log(xValue))
-    const yValue = yScale(Math.log(xValue))
+    const colorValue = colorScale(logAccessor(xValue))
+    const yValue = yScale(logAccessor(xValue))
     const x = currentXPosition
       + dimensions.margin.left
       + 15 // container padding
