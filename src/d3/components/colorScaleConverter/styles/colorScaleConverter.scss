@@ -13,6 +13,15 @@
   height: 450px;
   width: 600px;
 
+  input {
+    height: 21px;
+    width: 70%;
+
+    &[type="checkbox"] {
+      width: 20%;
+    }
+  }
+
   .Converter-Graph-Container {
     grid-area: 1 / 1 / 4 / 4;
 
@@ -51,5 +60,13 @@
   .Converter-Color-Start { grid-area: 4 / 2 / 5 / 3; }
   .Converter-Color-End { grid-area: 5 / 2 / 6 / 3; }
   .Converter-Steps { grid-area: 4 / 3 / 5 / 4; }
-  .Converter-GetLog { grid-area: 5 / 3 / 6 / 4; }
+  .Converter-GetLog {
+    grid-area: 5 / 3 / 6 / 4;
+    margin-top: 1rem;
+
+    &-Content {
+      align-items: center;
+      display: flex;
+    }
+  }
 }
