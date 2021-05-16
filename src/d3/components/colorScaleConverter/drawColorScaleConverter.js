@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import data from 'Src/d3/components/barChartCustom/data/data'
 
 const drawColorScaleConverter = (settings) => {
   // Reset
@@ -36,7 +37,7 @@ const drawColorScaleConverter = (settings) => {
     .attr("height", dimensions.height)
   const bounds = wrapper.append("g")
     .style("transform", `translate(${
-      dimensions.margin.left
+      dimensions.margin.left + 5
     }px, ${
       dimensions.margin.top
     }px)`)
@@ -74,6 +75,8 @@ const drawColorScaleConverter = (settings) => {
   const xAxis = bounds.select(".x-axis")
     .call(xAxisGenerator)
   const yAxisGenerator = d3.axisLeft()
+    .tickFormat(i => d3.color(colorScale(i)).formatHex())
+    .tickSizeOuter(0)
     .scale(yScale)
   const yAxis = bounds.select(".y-axis")
     .call(yAxisGenerator)
