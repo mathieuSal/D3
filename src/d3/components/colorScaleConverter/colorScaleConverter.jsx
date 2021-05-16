@@ -33,6 +33,7 @@ const ColorScaleConverter = () => {
         </div>
       </div>
       <div className="Converter-Range-Min">
+        <label>Min value: </label>
         <input
           type="number"
           value={settings.domain_min}
@@ -42,6 +43,7 @@ const ColorScaleConverter = () => {
         />
       </div>
       <div className="Converter-Range-Max">
+        <label>Max value: </label>
         <input
           type="number"
           value={settings.domain_max}
@@ -50,6 +52,7 @@ const ColorScaleConverter = () => {
         />
       </div>
       <div className="Converter-Color-Start">
+        <label>Starting color: </label>
         <input
           type="color"
           value={settings.color_start}
@@ -57,6 +60,7 @@ const ColorScaleConverter = () => {
         />
       </div>
       <div className="Converter-Color-End">
+        <label>Ending color: </label>
         <input
           type="color"
           value={settings.color_end}
@@ -64,21 +68,25 @@ const ColorScaleConverter = () => {
         />
       </div>
       <div className="Converter-Steps">
+        <label>Steps: </label>
         <input
           type="number"
+          min="2"
           value={settings.steps}
           onChange={(e) => editSetting('steps', e.target.value)}
         />
       </div>
       <div className="Converter-GetLog">
-        <input
-          type="checkbox"
-          id="getLog"
-          name="getLog"
-          checked={!!settings.get_log}
-          onChange={() => editSetting('get_log', !settings.get_log)}
-        />
-        <label htmlFor="getLog">Get Log</label>
+        <div className="Converter-GetLog-Content">
+          <input
+            type="checkbox"
+            id="getLog"
+            name="getLog"
+            checked={!!settings.get_log}
+            onChange={() => editSetting('get_log', !settings.get_log)}
+          />
+          <label htmlFor="getLog">Get Log</label>
+        </div>
       </div>
     </div>
   )
