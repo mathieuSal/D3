@@ -124,7 +124,7 @@ const drawColorScaleConverter = (settings) => {
     const colorValue = colorScale(logAccessor(xValue))
     const yValue = yScale(logAccessor(xValue))
     const x = currentXPosition
-      + dimensions.margin.left
+      + dimensions.margin.left + 5
       + 15 // container padding
     const y = yValue
       + dimensions.margin.top
