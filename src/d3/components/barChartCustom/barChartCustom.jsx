@@ -8,7 +8,11 @@ const BarChartCustom = () => {
   }, [])
 
   return (
-    <div id="D3Dashboard-BarChartCustom-Container" className="D3Dashboard-BarChartCustom-Container"/>
+    <div id="D3Dashboard-BarChartCustom-Container" className="D3Dashboard-BarChartCustom-Container">
+      <div id="tooltip-BarChartCustom" className="tooltip">
+        <div className="tooltip-value" id="tooltip-BarChartCustom-value" />
+      </div>
+    </div>
   )
 }
 

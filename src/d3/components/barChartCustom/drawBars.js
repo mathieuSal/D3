@@ -88,6 +88,8 @@ const drawBars = () => {
     .style("transform", "rotate(90deg)")
     .text("Value")
 
+  const tooltip = d3.select("#tooltip-BarChartCustom")
+
   bounds.append("g")
     .selectAll("rect")
     .data(data)
@@ -99,6 +101,31 @@ const drawBars = () => {
       ))
       .attr("width", () => xScale.bandwidth())
       .attr("fill", (d, i) => d3.schemeCategory10[i%10])
+    .on("mouseenter", onMouseEnter)
+    .on("mouseleave", onMouseLeave)
+
+  function onMouseEnter(event, datum) {
+    tooltip.style("opacity", 1)
+    tooltip.select("#tooltip-BarChartCustom-value")
+      .text(datum.value)
+    const index = data.findIndex((d) => nameAccessor(d) === nameAccessor(datum))
+    const x = xScale(index)
+      - (dimensions.margin.left / 2)
+      + 5 // container padding
+
+    const y = yScale(valueAccessor(datum))
+      - dimensions.margin.top
+      + 10 // container padding
+
+    tooltip.style("transform", `translate(`
+      + `${x}px,`
+      + `${y}px`
+      + `)`)
+  }
+
+  function onMouseLeave() {
+    // tooltip.style("opacity", 0)
+  }
 }
 
 export default drawBars
