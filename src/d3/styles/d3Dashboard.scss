@@ -7,11 +7,18 @@
   url("../fonts/Inter-Regular.woff?v=3.18") format("woff");
 }
 
+body {
+  font-family: 'Inter';
+  font-feature-settings: "zero","tnum";
+}
+
 .D3Dashboard {
+  .title {
+    cursor: pointer;
+  }
+
   .row {
     display: inline-flex;
-    font-family: 'Inter';
-    font-feature-settings: "zero","tnum";
     margin: .5rem 0;
   }
 }

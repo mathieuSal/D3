@@ -1,5 +1,6 @@
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
+import Row from 'Src/d3/row'
 import ColorScaleConverter from 'Src/d3/components/colorScaleConverter/colorScaleConverter'
 import PieChart from './components/pieChart/pieChart'
 import Transitions from 'Src/d3/components/transitions/transitions'
@@ -26,22 +27,30 @@ const D3Dashboard = () => {
       FallbackComponent={ErrorFallback}
     >
       <div className="D3Dashboard">
-        <div className="row">
-          <ColorScaleConverter />
-          <PieChart />
-          <Transitions />
-        </div>
-        <div className="row">
-          <GaugeChart />
-          <Viewbox />
-        </div>
-        <div className="row">
-          <BarChart />
-          <BarChartCustom />
-        </div>
-        <div className="row">
-          <LineChart />
-        </div>
+        <Row title="tools">
+          <div className="row">
+            <ColorScaleConverter />
+            <Viewbox />
+            <Transitions />
+          </div>
+        </Row>
+        <Row title="demo">
+          <div className="row">
+            <GaugeChart />
+            <PieChart />
+          </div>
+        </Row>
+        <Row title="bar chart">
+          <div className="row">
+            <BarChart />
+            <BarChartCustom />
+          </div>
+        </Row>
+        <Row title="line chart">
+          <div className="row">
+            <LineChart />
+          </div>
+        </Row>
       </div>
     </ErrorBoundary>
   )
