@@ -10,6 +10,7 @@ import Viewbox from 'Src/d3/components/viewbox/viewbox'
 import BarChartCustom from 'Src/d3/components/barChartCustom/barChartCustom'
 import LineChart from 'Src/d3/components/lineChart/lineChart'
 import './styles/d3Dashboard.scss'
+import MultipleCharts from 'Src/d3/components/multipleCharts/multipleCharts'
 
 const D3Dashboard = () => {
   function ErrorFallback({error, resetErrorBoundary}) {
@@ -49,6 +50,11 @@ const D3Dashboard = () => {
         <Row title="line chart">
           <div className="row">
             <LineChart />
+          </div>
+        </Row>
+        <Row title="Multiple graph in synch">
+          <div className="row">
+            <MultipleCharts />
           </div>
         </Row>
       </div>
